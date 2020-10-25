@@ -6,7 +6,7 @@ public class Execucao {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		ValidadorImpl validador = ValidadorImpl.getInstance();
+		Validador validador = Validador.getInstance();
 		validador.getRegra();
 		System.out.println("Informe um automato para a validação: ");
 		validador.validaAutomato(scanner.next());
