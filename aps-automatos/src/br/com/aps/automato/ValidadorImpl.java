@@ -13,7 +13,7 @@ public class ValidadorImpl implements Validador {
 		if (validaIdentificador(getStringTrim(automato, TokenEnum.VALIDACAO1))) {
 			if (validaOpAtrib(getStringTrim(automato, TokenEnum.VALIDACAO2))) {
 				if (validaNumero(getStringTrim(automato, TokenEnum.VALIDACAO3))
-						|| validaIdentificador(getStringTrim(automato, TokenEnum.VALIDACAO1))) {
+						|| validaIdentificador(getStringTrim(automato, TokenEnum.VALIDACAO3))) {
 					if (validaPV(automato)) {
 						System.out.println("O automato " + automato + " é válido!");
 					} else {
@@ -53,7 +53,9 @@ public class ValidadorImpl implements Validador {
 		if (identificador) {
 			char[] array = automato.substring(1).toCharArray();
 			for (int i = 0; i < array.length; i++) {
-				if (!Character.isDigit(array[i]) || !Character.isAlphabetic((array[i])) || array[i] == '_')
+				if (Character.isDigit(array[i]) || Character.isAlphabetic((array[i])) || array[i] == '_')
+					continue;
+				else
 					return false;
 			}
 		}
@@ -84,19 +86,19 @@ public class ValidadorImpl implements Validador {
 			switch (tipoToken) {
 			case VALIDACAO1:
 				if (array[i] == Token.OP_ATRIB) {
-					inicio = i - 1;
-					fim = i + 1;
+					inicio = 0;
+					fim = i;
 				}
 				break;
 			case VALIDACAO2:
 				if (array[i] == Token.OP_ATRIB) {
-					inicio = i - 1;
-					fim = array.length - 1;
+					inicio = i;
+					fim = i + 1;
 				}
 				break;
 			default:
 				if (array[i] == Token.OP_ATRIB) {
-					inicio = i;
+					inicio = i + 1;
 					fim = array.length - 1;
 				}
 				break;
